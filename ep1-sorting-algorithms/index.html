@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorting Algorithms Comparison</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .chart-container {
+            width: 80%;
+            margin: 20px auto;
+            height: 600px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Sorting Algorithm Performance Comparison</h1>
+    <div class="chart-container">
+        <canvas id="sortingChart"></canvas>
+    </div>
+
+    <script type="module" src="main.js"></script>
+    <script>
+        // Wait for results to be populated
+        const checkResults = setInterval(() => {
+            if (window.sortResults) {
+                clearInterval(checkResults);
+                displayResults(window.sortResults);
+            }
+        }, 100);
+
+        function displayResults(results) {
+            const algorithms = [...new Set(results.map(r => r.algorithm))];
+            const cases = [...new Set(results.map(r => r.case))];
+            const sizes = [...new Set(results.map(r => r.size))];
+
+            const datasets = algorithms.map((algorithm, index) => {
+                const algorithmData = results.filter(r => r.algorithm === algorithm);
+                return {
+                    label: algorithm,
+                    data: algorithmData.map(r => ({
+                        x: r.size,
+                        y: r.time
+                    })),
+                    borderColor: getColor(index),
+                    backgroundColor: getColor(index),
+                    fill: false
+                };
+            });
+
+            const ctx = document.getElementById('sortingChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    datasets: datasets
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        x: {
+                            type: 'linear',
+                            position: 'bottom',
+                            title: {
+                                display: true,
+                                text: 'Array Size'
+                            }
+                        },
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Time (ms)'
+                            }
+                        }
+                    },
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Sorting Algorithm Performance'
+                        },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false
+                        }
+                    }
+                }
+            });
+        }
+
+        function getColor(index) {
+            const colors = [
+                '#FF6384',
+                '#36A2EB',
+                '#FFCE56',
+                '#4BC0C0',
+                '#9966FF',
+                '#FF9F40'
+            ];
+            return colors[index % colors.length];
+        }
+    </script>
+</body>
+</html>
