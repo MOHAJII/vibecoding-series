@@ -1,0 +1,89 @@
+I'll help you create a plan for building this Tetriste puzzle game. Let's break it down into clear, manageable steps:
+
+1. **Data Structure Design**
+   - Create an Object/Class for game pieces with:
+     - Shape property (circle, square, triangle)
+     - Color property (red, green, blue)
+   - Game bar representation using an array (max length 10)
+   - Score tracking variable
+   - Game state tracking (active/game over)
+
+2. **Core Game Class Structure**
+   ```mermaid
+   classDiagram
+      class TestristeGame {
+          -gameBar[]
+          -score
+          -isGameOver
+          +insertLeft(piece)
+          +insertRight(piece)
+          +checkMatches()
+          +removeMatches()
+          +getGameState()
+      }
+   ```
+
+3. **Game Logic Implementation Steps**
+   a. **Piece Creation**
+      - Function to create valid game pieces
+      - Validation of shape and color inputs
+      - Random piece generator for testing
+
+   b. **Insertion Logic**
+      - Left insertion function
+      - Right insertion function
+      - Bar capacity check (max 10)
+      - Game over condition check
+
+   c. **Matching Logic**
+      - Scan for 3+ adjacent pieces matching by color
+      - Scan for 3+ adjacent pieces matching by shape
+      - Combine both checks into one function
+      - Store matching sequences for removal
+
+   d. **Removal and Scoring**
+      - Remove matched sequences
+      - Update score based on matches
+      - Collapse remaining pieces together
+      - Update game state
+
+   e. **State Management**
+      - Track current game bar state
+      - Maintain score
+      - Monitor game over conditions
+      - Provide state access methods
+
+4. **Testing Strategy**
+   - Test piece creation
+   - Test insertions (left/right)
+   - Test matching detection
+   - Test removal logic
+   - Test scoring system
+   - Test game over conditions
+
+5. **Code Organization**
+   ```mermaid
+   graph TD
+      A[main.js] --> B[GamePiece Class]
+      A --> C[TestristeGame Class]
+      C --> D[Insertion Logic]
+      C --> E[Matching Logic]
+      C --> F[Scoring System]
+      C --> G[State Management]
+   ```
+
+6. **Future Expansion Points**
+   - UI integration hooks
+   - Score multipliers
+   - Special pieces
+   - Level system
+   - Animation states
+
+This plan focuses on creating a solid foundation with:
+- Clear separation of concerns
+- Easy-to-understand logic flow
+- Modular design for future expansion
+- Well-defined interfaces for UI integration
+- Maintainable and testable code structure
+
+Would you like me to start implementing any specific part of this plan? We can begin with creating the basic data structures and core game logic.
