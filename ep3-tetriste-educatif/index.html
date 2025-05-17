@@ -3,87 +3,178 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tetriste Game</title>
+    <title>Testriste Éducatif - Learn About Morocco</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
+        :root {
+            --primary-color: #c11e38;
+            --secondary-color: #006233;
+            --accent-color: #1B1B1B;
+            --background-color: #f8f8f8;
+            --text-color: #333;
+        }
+
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #f8f9fa;
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .game-container {
-            background-color: white;
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .title {
-            color: #2c3e50;
-            text-align: center;
-            margin-bottom: 1.5rem;
-            font-weight: bold;
-        }
-
-        #game-bar {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
-            gap: 10px;
-            background-color: #e9ecef;
-            padding: 15px;
-            border-radius: 12px;
-            min-height: 80px;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
+            background-color: var(--background-color);
+            margin: 0;
+            padding: 20px;
+            color: var(--text-color);
+        }
+
+        #game-container {
+            background-color: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            max-width: 800px;
+            width: 95%;
+        }
+
+        .game-header {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .game-title {
+            color: var(--primary-color);
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        #question {
+            font-size: 1.5em;
             margin: 20px 0;
-        }
-
-        .game-piece {
-            width: 60px;
-            height: 60px;
-            border: 3px solid #333;
-            transition: all 0.3s ease;
-        }
-
-        /* Shape styles */
-        .circle {
-            border-radius: 50%;
-        }
-
-        .square {
-            border-radius: 4px;
-        }
-
-        .triangle {
-            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-        }
-
-        /* Color styles */
-        .red {
-            background-color: #dc3545;
-            border-color: #c82333;
-        }
-
-        .green {
-            background-color: #28a745;
-            border-color: #218838;
-        }
-
-        .blue {
-            background-color: #007bff;
-            border-color: #0056b3;
+            padding: 15px;
+            background-color: var(--secondary-color);
+            color: white;
+            border-radius: 10px;
+            text-align: center;
         }
 
         #score {
-            font-size: 2rem;
+            font-size: 1.2em;
+            color: var(--accent-color);
             font-weight: bold;
-            color: #2c3e50;
             text-align: center;
-            margin: 1rem 0;
+            margin: 15px 0;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            border: 2px solid var(--primary-color);
+        }
+
+        .bar-container {
+            margin: 20px 0;
+            padding: 15px;
+            border: 3px solid #eee;
+            border-radius: 10px;
+            min-height: 70px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #answer-bar {
+            background-color: rgba(0, 98, 51, 0.1);
+            border-color: var(--secondary-color);
+        }
+
+        #trash-bar {
+            background-color: rgba(193, 30, 56, 0.1);
+            border-color: var(--primary-color);
+        }
+
+        .game-piece {
+            display: inline-flex;
+            width: 50px;
+            height: 50px;
+            margin: 5px;
+            border-radius: 8px;
+            justify-content: center;
+            align-items: center;
+            font-size: 28px;
+            font-weight: bold;
+            color: white;
+            text-transform: uppercase;
+            transition: transform 0.2s;
+            cursor: pointer;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .game-piece:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .red { background: linear-gradient(145deg, #f44336, #d32f2f); }
+        .green { background: linear-gradient(145deg, #4caf50, #388e3c); }
+        .blue { background: linear-gradient(145deg, #2196f3, #1976d2); }
+
+        #next-piece-container {
+            text-align: center;
+            margin: 25px 0;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        #next-piece {
+            width: 70px;
+            height: 70px;
+            line-height: 70px;
+            margin: 0 auto;
+            font-size: 32px;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 15px 0;
+            flex-wrap: wrap;
+        }
+
+        button {
+            padding: 12px 25px;
+            font-size: 1em;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            background-color: var(--secondary-color);
+            color: white;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        button:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+            transform: none;
         }
 
         #game-over {
@@ -92,98 +183,259 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background-color: rgba(220, 53, 69, 0.95);
+            background-color: rgba(0,0,0,0.95);
             color: white;
-            padding: 2rem 3rem;
+            padding: 30px;
             border-radius: 15px;
-            font-size: 2rem;
-            font-weight: bold;
-            z-index: 1000;
-            box-shadow: 0 0 30px rgba(0,0,0,0.2);
-        }
-
-        .next-piece-container {
             text-align: center;
-            margin: 1rem 0;
-            padding: 1rem;
-            background-color: #e9ecef;
-            border-radius: 12px;
+            z-index: 1000;
         }
 
-        .next-piece-label {
+        .bar-label {
             font-weight: bold;
-            color: #2c3e50;
-            margin-bottom: 0.5rem;
+            margin-bottom: 10px;
+            color: var(--accent-color);
+            font-size: 1.1em;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        .next-piece {
-            width: 50px;
-            height: 50px;
-            margin: 0 auto;
-            border: 3px solid #333;
+        .info-section {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 10px;
+            border-left: 5px solid var(--primary-color);
         }
 
-        .game-stats {
-            background-color: #e9ecef;
-            border-radius: 12px;
-            padding: 1rem;
-            margin: 1rem 0;
+        .cost-info {
+            font-size: 0.9em;
+            color: #666;
+            text-align: center;
+            margin-top: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .active-bar {
+            transform: scale(1.02);
+            box-shadow: 0 0 20px rgba(0, 98, 51, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .keyboard-control {
+            display: inline-flex;
+            align-items: center;
+            background: #f0f0f0;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin: 0 4px;
+            font-size: 0.9em;
+            border: 1px solid #ddd;
+            box-shadow: 0 2px 3px rgba(0,0,0,0.1);
+        }
+
+        .controls-help {
+            background: rgba(0,0,0,0.05);
+            padding: 10px;
+            border-radius: 8px;
+            margin: 10px 0;
+            font-size: 0.9em;
+        }
+
+        .help-toggle {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: none;
+            border: none;
+            color: var(--primary-color);
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        #help-modal .modal-body {
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+
+        .key-binding {
+            background: #f8f9fa;
+            padding: 8px 15px;
+            margin: 5px 0;
+            border-radius: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="game-container">
-            <h1 class="title display-4">Tetriste Game</h1>
-            
-            <div class="row align-items-center">
-                <div class="col-md-6 offset-md-3">
-                    <div class="game-stats">
-                        <div id="score" class="text-center mb-3">Score: 0</div>
-                        <div class="next-piece-container">
-                            <h5 class="next-piece-label">Next Piece:</h5>
-                            <div id="next-piece" class="next-piece"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div id="game-bar" class="mb-4"></div>
-            
-            <div class="row justify-content-center">
-                <div class="col-md-8">
-                    <div class="d-flex justify-content-between gap-3">
-                        <button onclick="insertLeft()" class="btn btn-primary btn-lg flex-grow-1">
-                            <i class="bi bi-arrow-left"></i> Insert Left
-                        </button>
-                        <button onclick="newGame()" class="btn btn-success btn-lg">
-                            New Game
-                        </button>
-                        <button onclick="insertRight()" class="btn btn-primary btn-lg flex-grow-1">
-                            Insert Right <i class="bi bi-arrow-right"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
+    <div id="game-container">
+        <div class="game-header">
+            <h1 class="game-title">
+                <i class="fas fa-gamepad me-2"></i>
+                Testriste Éducatif
+            </h1>
+            <p><i class="fas fa-graduation-cap me-2"></i>Learn About Morocco While Playing!</p>
+            <button class="help-toggle" data-bs-toggle="modal" data-bs-target="#help-modal">
+                <i class="fas fa-question-circle fa-lg"></i>
+            </button>
+        </div>
 
-            <div class="card mt-4">
-                <div class="card-body">
-                    <h3 class="card-title">How to Play:</h3>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Insert pieces from left or right</li>
-                        <li class="list-group-item">Match 3 or more pieces of same color or shape</li>
-                        <li class="list-group-item">Clear matches to score points</li>
-                        <li class="list-group-item">Game over when bar is full (10 pieces)</li>
+        <div id="question">
+            <i class="fas fa-question-circle me-2"></i>
+            <span id="question-text"></span>
+        </div>
+        <div id="score">
+            <i class="fas fa-star me-2"></i>
+            Score: 0
+        </div>
+        
+        <div id="next-piece-container">
+            <div class="bar-label">
+                <i class="fas fa-arrow-down me-2"></i>
+                Next Letter Piece:
+            </div>
+            <div id="next-piece" class="game-piece"></div>
+        </div>
+
+        <div class="info-section answer-section active-bar">
+            <div class="bar-label">
+                <i class="fas fa-keyboard me-2"></i>
+                Answer Bar
+                <span class="badge bg-secondary ms-2" data-bs-toggle="tooltip" title="Press SPACE to switch between bars">
+                    Active
+                </span>
+            </div>
+            <div id="answer-bar" class="bar-container"></div>
+            <div class="cost-info">
+                <i class="fas fa-coins"></i>
+                Remove letter cost: 50 points
+            </div>
+            <div class="controls">
+                <button onclick="insertAnswerLeft()" class="btn">
+                    <i class="fas fa-arrow-left"></i>
+                    Place Left
+                </button>
+                <button onclick="removeAnswerLeft()" class="btn">
+                    <i class="fas fa-backspace"></i>
+                    Remove Left
+                </button>
+                <button onclick="removeAnswerRight()" class="btn">
+                    <i class="fas fa-backspace fa-flip-horizontal"></i>
+                    Remove Right
+                </button>
+                <button onclick="insertAnswerRight()" class="btn">
+                    Place Right
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="info-section trash-section">
+            <div class="bar-label">
+                <i class="fas fa-trash-alt me-2"></i>
+                Trash Bar
+                <span class="badge bg-secondary ms-2" data-bs-toggle="tooltip" title="Press SPACE to switch between bars">
+                    Inactive
+                </span>
+            </div>
+            <div id="trash-bar" class="bar-container"></div>
+            <div class="cost-info">
+                <i class="fas fa-medal"></i>
+                Match 3 or more colors to earn points!
+            </div>
+            <div class="controls">
+                <button onclick="insertTrashLeft()" class="btn">
+                    <i class="fas fa-arrow-left"></i>
+                    Place Left
+                </button>
+                <button onclick="insertTrashRight()" class="btn">
+                    Place Right
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <div class="controls-help mt-4 text-center">
+            <p class="mb-2"><strong>Keyboard Controls:</strong></p>
+            <span class="keyboard-control">Space</span> Switch Bars |
+            <span class="keyboard-control">←</span> Place Left |
+            <span class="keyboard-control">→</span> Place Right |
+            <span class="keyboard-control">Backspace</span> Remove Left |
+            <span class="keyboard-control">Delete</span> Remove Right
+        </div>
+
+        <button onclick="newGame()" class="btn w-100 mt-4" style="background-color: var(--primary-color);">
+            <i class="fas fa-redo me-2"></i>
+            New Game
+        </button>
+    </div>
+
+    <div id="game-over" class="modal-dialog">
+        <div class="modal-content bg-dark text-white p-4">
+            <h2><i class="fas fa-trophy me-2"></i>Game Over!</h2>
+            <p>Thank you for learning about Morocco!</p>
+            <p>Final Score: <span id="final-score"></span></p>
+            <button onclick="newGame()" class="btn mt-3">
+                <i class="fas fa-play me-2"></i>
+                Play Again
+            </button>
+        </div>
+    </div>
+
+    <!-- Help Modal -->
+    <div class="modal fade" id="help-modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">How to Play</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <h6 class="mb-3">Keyboard Controls:</h6>
+                    <div class="key-binding">
+                        <span><i class="fas fa-keyboard me-2"></i>Space</span>
+                        <span>Switch between Answer and Trash bars</span>
+                    </div>
+                    <div class="key-binding">
+                        <span><i class="fas fa-arrow-left me-2"></i>Left Arrow</span>
+                        <span>Place piece on the left</span>
+                    </div>
+                    <div class="key-binding">
+                        <span><i class="fas fa-arrow-right me-2"></i>Right Arrow</span>
+                        <span>Place piece on the right</span>
+                    </div>
+                    <div class="key-binding">
+                        <span><i class="fas fa-backspace me-2"></i>Backspace</span>
+                        <span>Remove letter from left (Answer bar only)</span>
+                    </div>
+                    <div class="key-binding">
+                        <span><i class="fas fa-delete-left me-2"></i>Delete</span>
+                        <span>Remove letter from right (Answer bar only)</span>
+                    </div>
+
+                    <hr>
+
+                    <h6 class="mb-3">Game Rules:</h6>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Answer the questions about Morocco by forming words</li>
+                        <li class="mb-2"><i class="fas fa-gem text-primary me-2"></i>Match 3 or more same-colored pieces in the Trash bar for points</li>
+                        <li class="mb-2"><i class="fas fa-coins text-warning me-2"></i>Removing letters costs 50 points</li>
+                        <li class="mb-2"><i class="fas fa-star text-danger me-2"></i>Game ends if either bar gets full</li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
 
-    <div id="game-over" class="text-center">Game Over!</div>
-
-    <!-- Bootstrap JS and dependencies -->
+    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="main.js"></script>
+    <script src="testriste-edu.js"></script>
 </body>
 </html>
+
